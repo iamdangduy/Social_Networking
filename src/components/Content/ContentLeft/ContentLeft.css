@@ -1,0 +1,56 @@
+.status-area {
+  width: 60%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+.status-creator {
+  /* height: 200px; */
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.status-creator-input {
+  width: 100%;
+  border-radius: 4px;
+  display: flex;
+}
+
+.status-creator-input-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: aquamarine;
+  border-radius: 40%;
+  margin-right: 12px;
+  background-image: url("https://elearningindustry.com/wp-content/uploads/2020/10/advantages-and-disadvantages-of-online-learning.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.status-creator-footer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.status-creator-image {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  cursor: pointer;
+  justify-content: space-around;
+}
+
+.status-creator-button {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 100px;
+  height: 100%;
+}

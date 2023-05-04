@@ -1,0 +1,107 @@
+.status-feed {
+  width: 100%;
+  height: 400px;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.status-feed-user-info {
+  width: 100%;
+  height: 50px;
+  display: flex;
+}
+
+.status-feed-user-info--avatar {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: antiquewhite;
+}
+
+.status-feed-user-info--name {
+  margin-left: 20px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.status-feed-like-comment-share {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top: 0.2px solid rgb(119, 119, 119);
+  border-bottom: 0.2px solid rgb(119, 119, 119);
+}
+
+.like,
+.comment,
+.share {
+  display: flex;
+  align-items: center;
+  width: 33%;
+  justify-content: center;
+  cursor: pointer;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.icon-like,
+.icon-comment,
+.icon-share {
+  margin-right: 10px;
+}
+
+.status-feed-create-comment {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.create-comment-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: rgb(192, 90, 90);
+}
+
+.create-comment-text {
+  height: 100%;
+  width: calc(100% - 45px - 50px);
+  display: flex;
+  align-items: center;
+}
+
+.status-feed-content {
+  width: 100%;
+  height: calc(100% - 50px - 50px - 40px);
+  background-color: white;
+}
+
+.create-comment-button {
+  background-color: #e6f2ff;
+  border-radius: 8px;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.create-comment-button:hover {
+  background-color: #cce4ff;
+}
+
+.like:hover,
+.comment:hover,
+.share:hover {
+  background-color: #e6f2ff;
+}

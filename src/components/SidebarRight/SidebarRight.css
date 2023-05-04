@@ -1,0 +1,73 @@
+.side-bar-right {
+  width: 300px;
+  height: 100%;
+  padding: 20px 12px 0px 12px;
+  box-sizing: border-box;
+  position: sticky;
+  right: 0px;
+  top: 60px;
+}
+
+.sidebar-right-search {
+  height: 50px;
+  width: 100%;
+}
+
+.sidebar-right-friends-request {
+  height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.friends-request--header {
+  width: 100%;
+  /* height: 16px; */
+  font-weight: 700;
+  opacity: .5;
+  font-size: 16px;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+}
+
+.friends-request--main {
+  height: calc(100% - 20px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.friends-request--main-left {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: antiquewhite;
+}
+
+.friends-request--main-right {
+  width: calc(100% - 72px);
+  height: 100%;
+  padding: 4px 0px;
+  box-sizing: border-box;
+}
+
+.friends-request--main-right-name {
+  height: calc(100% - 36px);
+  width: 100%;
+  padding-left: 11px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.friends-request--main-right-button {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.friends-online{
+  width: 100%;
+  max-height: calc(100vh - 100px - 162px);
+  overflow-y: scroll;
+}

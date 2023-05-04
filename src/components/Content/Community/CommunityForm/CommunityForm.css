@@ -1,0 +1,49 @@
+.CommunityForm {
+    width: 30%;
+    /* height: 200px; */
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: white;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.community-form--main {
+    display: flex;
+    align-items: center;
+}
+
+.community-form--name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.community-form--second-name {
+    font-size: 15px;
+    font-weight: 700;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.community-form--avatar {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    margin: 10px 20px;
+    border-radius: 50%;
+}
+
+.community-form--footer {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.ignore-btn {
+    width: 40%;
+}
+
+.follow-btn {
+    width: 40%;
+}

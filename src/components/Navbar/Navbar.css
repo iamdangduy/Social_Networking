@@ -1,0 +1,43 @@
+.navigation-bar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  background-color: white;
+}
+
+.navigation-logo {
+  width: 250px;
+  height: 100%;
+}
+
+.navigation-search {
+  width: 500px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.navigation-avatar {
+  width: calc(100% - 500px - 250px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  padding: 0px 12px;
+}
+
+.navigation-avatar--image {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(47, 69, 88);
+  border-radius: 4px;
+}
+
+.navigation-avatar--name {
+  font-size: 17px;
+  font-weight: 700;
+  margin-right: 12px;
+}

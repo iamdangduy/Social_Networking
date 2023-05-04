@@ -1,0 +1,18 @@
+.side-bar-left {
+  width: 250px;
+  height: 100%;
+  padding: 20px 12px 0px 12px;
+  box-sizing: border-box;
+  position: sticky;
+  left: 0px;
+  top: 60px;
+}
+
+.a-navbar-link {
+  color: black;
+}
+
+.active .sidebar-left-row {
+  background-color: #4d646f;
+  color: white;
+}
