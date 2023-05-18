@@ -1,6 +1,6 @@
 .status-feed {
   width: 100%;
-  height: 400px;
+  /* height: 400px; */
   background-color: white;
   border-radius: 20px;
   margin-top: 20px;
@@ -12,6 +12,7 @@
   width: 100%;
   height: 50px;
   display: flex;
+  justify-content: space-between;
 }
 
 .status-feed-user-info--avatar {
@@ -25,6 +26,8 @@
   margin-left: 20px;
   font-size: 17px;
   font-weight: 600;
+  display: flex;
+  align-items: flex-end;
 }
 
 .status-feed-like-comment-share {
@@ -104,4 +107,42 @@
 .comment:hover,
 .share:hover {
   background-color: #e6f2ff;
+}
+
+.status-feed-content--title {
+  margin: 10px 0px;
+  /* display: flex; */
+}
+
+.status-feed-content--image{
+  height: calc(100% - 28px - 10px);
+  width: 100%;
+}
+
+.status-feed-user-info--more {
+  position: relative;
+}
+
+.status-feed-user-info--more:hover {
+  cursor: pointer;
+}
+
+.edit-remove-status {
+  width: 100px;
+  /* height: 200px; */
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  position: absolute;
+  right: 0;
+}
+
+.edit-remove-status--row {
+  font-size: 17px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.edit-remove-status--row:hover {
+  font-weight: 700;
 }

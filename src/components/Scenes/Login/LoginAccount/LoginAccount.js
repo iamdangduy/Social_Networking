@@ -1,45 +1,22 @@
 import { useState, useContext } from "react";
 import "./LoginAccount.css";
-import { LoginContext } from "../../../../App";
+import { LoginContext } from "../../../GlobalContext";
+import {  SetCookie } from "../../../Helper";
 
 function LoginAccount(props) {
-  const displayRegisterForm = () => {
-    props.parentCallback(true);
-  };
-
   const isLogin = useContext(LoginContext);
-  console.log(isLogin);
-
-  function SetCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
-
-  // function GetCookie(cname) {
-  //   let name = cname + "=";
-  //   let decodedCookie = decodeURIComponent(document.cookie);
-  //   let ca = decodedCookie.split(";");
-  //   for (let i = 0; i < ca.length; i++) {
-  //     let c = ca[i];
-  //     while (c.charAt(0) == " ") {
-  //       c = c.substring(1);
-  //     }
-  //     if (c.indexOf(name) == 0) {
-  //       return c.substring(name.length, c.length);
-  //     }
-  //   }
-  //   return "";
-  // }
-
   const [loginInfor, setLoginInfor] = useState({
     Email: "",
     Password: "",
   });
-
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+
+  const displayRegisterForm = () => {
+    props.parentCallback(true);
+  };
+
+  
 
   const onUpdateField = (e) => {
     const nextFormState = {
@@ -52,7 +29,6 @@ function LoginAccount(props) {
   const onSubmitForm = (e) => {
     validateUser();
     e.preventDefault();
-    console.log(loginInfor);
   };
 
   const validateUser = () => {
@@ -81,8 +57,10 @@ function LoginAccount(props) {
       body: JSON.stringify(loginInfor),
     });
     let rs = await rq.json();
-    if (rs.status === "success") SetCookie("UserToken", rs.data.token);
-    else {
+    if (rs.status === "success") {
+      SetCookie("UserToken", rs.data.token);
+      isLogin.changeLogin();
+    } else {
       console.log(rs.message);
     }
   };

@@ -1,0 +1,29 @@
+.infor-search {
+  height: 50px;
+  width: 100%;
+  background-color: white;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.205);
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  box-sizing: border-box;
+}
+
+.infor-search:hover {
+  background-color: #bfcbd0;
+  cursor: pointer;
+}
+
+.infor-search-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: black;
+  overflow: hidden;
+}
+
+.infor-search-name {
+  margin-left: 20px;
+  font-size: 17px;
+  font-weight: 700;
+}

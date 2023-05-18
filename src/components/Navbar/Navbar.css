@@ -6,6 +6,7 @@
   top: 0px;
   left: 0px;
   background-color: white;
+  z-index: 1;
 }
 
 .navigation-logo {
@@ -16,8 +17,7 @@
 .navigation-search {
   width: 500px;
   height: 100%;
-  display: flex;
-  align-items: center;
+  margin-top: 10px;
 }
 
 .navigation-avatar {
@@ -34,10 +34,14 @@
   height: 40px;
   background-color: rgb(47, 69, 88);
   border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .navigation-avatar--name {
   font-size: 17px;
   font-weight: 700;
   margin-right: 12px;
+  cursor: pointer;
 }
+

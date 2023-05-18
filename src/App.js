@@ -1,22 +1,19 @@
+import React from "react";
 import Container from "./components/Scenes/Container";
 import Login from "./components/Scenes/Login/Login";
-import { createContext, useState } from "react";
-
-export const LoginContext = createContext();
+import { useContext } from "react";
+import { LoginContext } from "./components/GlobalContext";
 
 function App() {
-
-  const [isLogin, setIsLogin] = useState(false);
-
+  const isLogin = useContext(LoginContext);
   return (
-    <LoginContext.Provider value={isLogin}>
-      <div className="App">
-        {isLogin ? <Container></Container> : <Login></Login>}
-        {/* <AlertNotification></AlertNotification> */}
-        {/* <Login></Login> */}
-        {/* <Container></Container> */}
-      </div>
-    </LoginContext.Provider>
+    <div className="App">
+      {isLogin.isLoggedIn ? <Container /> : <Login />}
+      {/* <Container />  */}
+      {/* <AlertNotification></AlertNotification> */}
+      {/* <Login></Login> */}
+      {/* <Container></Container> */}
+    </div>
   );
 }
 

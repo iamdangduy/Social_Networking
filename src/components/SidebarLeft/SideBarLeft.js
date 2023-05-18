@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
 import "./SidebarLeft.css";
+import { SetCookie } from "../Helper";
 import SidebarLeftChoice from "./SidebarLeftChoice/SidebarLeftChoice";
 
 function SidebarLeft() {
+
+  const Logout = () => {
+    SetCookie("UserToken", "");
+    window.location.reload();
+  };
+
   return (
     <div className="side-bar-left">
       <NavLink exact="true" to="/" className="a-navbar-link">
@@ -17,12 +24,12 @@ function SidebarLeft() {
           iconElement={<i className="fa-solid fa-people-group fa-xl"></i>}
         ></SidebarLeftChoice>
       </NavLink>
-      <NavLink to="/messages" className="a-navbar-link">
+      {/* <NavLink to="/messages" className="a-navbar-link">
         <SidebarLeftChoice
           text="Messages"
           iconElement={<i className="fa-regular fa-message fa-xl"></i>}
         ></SidebarLeftChoice>
-      </NavLink>
+      </NavLink> */}
       <NavLink to="/notification" className="a-navbar-link">
         <SidebarLeftChoice
           text="Notification"
@@ -47,7 +54,7 @@ function SidebarLeft() {
           iconElement={<i className="fa-solid fa-gear fa-xl"></i>}
         ></SidebarLeftChoice>
       </NavLink>
-      <NavLink to="/logout" className="a-navbar-link">
+      <NavLink to="/logout" className="a-navbar-link" onClick={Logout}>
         <SidebarLeftChoice
           text="Logout"
           iconElement={<i className="fa-solid fa-right-from-bracket fa-xl"></i>}

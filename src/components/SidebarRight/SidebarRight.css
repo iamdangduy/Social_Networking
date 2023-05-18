@@ -6,6 +6,7 @@
   position: sticky;
   right: 0px;
   top: 60px;
+  /* z-index: 2; */
 }
 
 .sidebar-right-search {
@@ -23,7 +24,7 @@
   width: 100%;
   /* height: 16px; */
   font-weight: 700;
-  opacity: .5;
+  opacity: 0.5;
   font-size: 16px;
   margin-bottom: 4px;
   box-sizing: border-box;
@@ -66,7 +67,7 @@
   justify-content: space-around;
 }
 
-.friends-online{
+.friends-online {
   width: 100%;
   max-height: calc(100vh - 100px - 162px);
   overflow-y: scroll;

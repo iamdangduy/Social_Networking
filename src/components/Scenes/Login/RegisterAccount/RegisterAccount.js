@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { ConvertTime } from "../../../Helper";
 import "./RegisterAccount.css";
 
 function RegisterAccount(props) {
@@ -31,9 +32,12 @@ function RegisterAccount(props) {
     else setEmailValid(false);
     if (form.Name === "") setNameValid(true);
     else setNameValid(false);
-    if (form.Password.indexOf(" ") >= 0) setPasswordValid(true);
     if (form.Password === "") setPasswordValid(true);
-    else setPasswordValid(false);
+    else if (form.Password.indexOf(" ") >= 0) setPasswordValid(true);
+    else {
+      setPasswordValid(false);
+    }
+
     // else if (date === "")
     // else if (gender === "") setMassage("Gender do not empty");
     if (form.Password !== form.RePassword) setRePasswordValid(true);
@@ -47,23 +51,6 @@ function RegisterAccount(props) {
       createNewAccount();
   };
 
-  const createNewAccount = async function () {
-    console.log("Register Success!!");
-    const url = "https://localhost:44395/api/User/Register";
-    let rq = await fetch(url, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-    let rs = await rq.json();
-    if (rs.status === "success") 
-    alert("Register Successful!!");
-    displayRegisterForm();
-    console.log(rs);
-  };
-
   const onUpdateField = (e) => {
     const nextFormState = {
       ...form,
@@ -75,7 +62,25 @@ function RegisterAccount(props) {
   const onSubmitForm = (e) => {
     validateUser();
     e.preventDefault();
-    console.log(form);
+  };
+
+  const createNewAccount = async function () {
+    console.log("Register Success!!");
+    const url = "https://localhost:44395/api/User/Register";
+    let rq = await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...form,
+        DateOfBirth: ConvertTime(form.DateOfBirth),
+      }),
+    });
+    let rs = await rq.json();
+    if (rs.status === "success") alert("Register Successful!!");
+    displayRegisterForm();
+    console.log(rs);
   };
 
   return (

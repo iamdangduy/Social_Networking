@@ -25,10 +25,11 @@
   background-color: aquamarine;
   border-radius: 40%;
   margin-right: 12px;
-  background-image: url("https://elearningindustry.com/wp-content/uploads/2020/10/advantages-and-disadvantages-of-online-learning.jpg");
+  /* background-image: url("https://elearningindustry.com/wp-content/uploads/2020/10/advantages-and-disadvantages-of-online-learning.jpg"); */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  overflow: hidden;
 }
 
 .status-creator-footer {

@@ -5,6 +5,7 @@ import SidebarRight from "../SidebarRight/SidebarRight";
 import Content from "../Content/Content";
 
 function Container() {
+  
   return (
     <div>
       <Navbar></Navbar>
