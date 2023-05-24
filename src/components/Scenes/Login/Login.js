@@ -12,6 +12,9 @@ function Login() {
 
   return (
     <div className="Login">
+      <div className="content-logo" style={{backgroundImage: "url('/Socialize.png')"}}>
+        {/* <img src='/Socialize.png' alt="duiyddz"/> */}
+      </div>
       {isRegister ? (
         <RegisterAccount parentCallback={changeIsRegister}></RegisterAccount>
       ) : (

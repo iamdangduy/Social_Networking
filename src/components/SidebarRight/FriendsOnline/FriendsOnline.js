@@ -1,6 +1,9 @@
+
 import "./FriendsOnline.css";
 
+
 function FriendsOnline(props) {
+  
   return (
     <div className="sidebar-right-friends-online">
       <div

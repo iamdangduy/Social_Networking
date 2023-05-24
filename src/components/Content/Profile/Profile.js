@@ -1,52 +1,96 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../GlobalContext";
-import { ConvertDateTime } from "../../Helper";
+import { ConvertDateTime, GetCookie, linkBackend } from "../../Helper";
 import "./Profile.css";
 
 function Profile() {
+  let userToken = GetCookie("UserToken");
   const isLogin = useContext(LoginContext);
+  const [infoUSer, setInfoUser] = useState('');
   const [avatar, setAvatar] = useState(isLogin.userInfor.Avatar);
-  const [infoUSer, setInfoUser] = useState(isLogin.userInfor);
+  // const [selectedFile, setSelectedFile] = useState(null);
+  const [imageData, setImageData] = useState("");
+  console.log(avatar.preview); 
 
-  console.log(infoUSer);
   useEffect(() => {
     setInfoUser(isLogin.userInfor);
   }, [isLogin.userInfor]);
 
-  const handleInfoUser = (e) => {
-    const nextInfoUser = {
-      ...infoUSer,
-      Avatar: avatar.preview,
-      [e.target.name]: e.target.value,
-    };
-    setInfoUser(nextInfoUser);
-  };
+  // useEffect(() => {
+  //   setInfoUser({
+  //     ...infoUSer,
+  //     Avatar: imageData,
+  //   });
+  // }, [avatar]);
 
-  const handlePreviewAvatar = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
     file.preview = URL.createObjectURL(file);
     setAvatar(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      // const base64String =
+      setImageData(reader.result.split("base64,")[1]);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
-  const inputFile = useRef(null);
-  const onButtonClick = () => {
-    // `current` points to the mounted file input element
-    inputFile.current.click();
+  const handleInfoUser = (e) => {
+    setInfoUser({
+      ...infoUSer,
+      [e.target.name]: e.target.value,
+    });
+
+  };
+
+  const updateInfoUser = async function () {
+    const nextInfoUser = {
+      ...infoUSer,
+      Avatar: imageData,
+    };
+    isLogin.setUserGlobalContext(nextInfoUser);
+    const url = "https://localhost:44395/api/User/UpdateInfoUser";
+    let rq = await fetch(url, {
+      method: "post",
+      headers: {
+        Authorization: `${userToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...infoUSer,
+        Avatar: imageData,
+      }),
+    });
+    let rs = await rq.json();
+    if (rs.status === "success") {
+      alert("Register Successful!!");
+      window.location.reload();
+    }
+    console.log(rs);
+  };
+
+  const onSubmitAvatar = () => {
+    document.querySelector("#file").click();
   };
 
   return (
     <div className="Profile">
       <h1 style={{ marginBottom: "10px" }}>Edit Profile</h1>
-      <div className="profile-avatar" onClick={onButtonClick}>
+      <div className="profile-avatar" onClick={onSubmitAvatar}>
         <input
           type="file"
           id="file"
           style={{ display: "none" }}
-          ref={inputFile}
-          onChange={handlePreviewAvatar}
+          onChange={handleFileChange}
         />
         <img
-          src={avatar ? avatar.preview : `https://i.stack.imgur.com/l60Hf.png`}
+          src={
+            !avatar.preview ? `${linkBackend}${infoUSer.Avatar}` : avatar.preview
+          }
+          alt="123"
         />
       </div>
       <div className="profile-infor">
@@ -57,17 +101,27 @@ function Profile() {
               className="full-name"
               type="text"
               name="Name"
-              onChange={handleInfoUser}
               value={infoUSer.Name}
+              onChange={handleInfoUser}
             />
           </div>
           <div className="profile-infor-left-row">
             <label>Email</label>
-            <input className="email" type="text" value={infoUSer.Email} />
+            <input
+              className="email"
+              type="text"
+              value={infoUSer.Email}
+              onChange={handleInfoUser}
+            />
           </div>
           <div className="profile-infor-left-row">
             <label>Phone</label>
-            <input className="phone" type="text" value={infoUSer.Phone} />
+            <input
+              className="phone"
+              type="text"
+              value={infoUSer.Phone}
+              onChange={handleInfoUser}
+            />
           </div>
         </div>
         <div className="profile-infor-right">
@@ -77,6 +131,7 @@ function Profile() {
               type="date"
               className="date-of-birth"
               value={ConvertDateTime(infoUSer.DateOfBirth)}
+              onChange={handleInfoUser}
             />
           </div>
           <div className="profile-infor-right-row">
@@ -113,7 +168,11 @@ function Profile() {
         </div>
       </div>
       <div className="profile-bottom">
-        <div className="btn pri-btn" style={{ marginLeft: "15px" }}>
+        <div
+          className="btn pri-btn"
+          style={{ marginLeft: "15px" }}
+          onClick={updateInfoUser}
+        >
           Save
         </div>
         <div className="btn second-btn">Cancel</div>

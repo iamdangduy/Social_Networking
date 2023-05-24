@@ -4,6 +4,7 @@ import ContentLeft from "./ContentLeft/ContentLeft";
 import Community from "./Community/Community";
 import Notification from "./Notification/Notification";
 import Profile from "./Profile/Profile";
+import Explore from "./Explore/Explore";
 
 function Content() {
   return (
@@ -13,6 +14,7 @@ function Content() {
         <Route path="/community" element={<Community/>} />
         <Route path="/notification" element={<Notification/>} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/explore" element={<Explore/>} />
       </Routes>
     </div>
   );

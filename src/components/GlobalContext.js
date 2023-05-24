@@ -12,12 +12,30 @@ function LoginProvider(props) {
     Avatar: "",
     Account: "",
   });
+  const [friendInfo, setFriendInfor] = useState({
+    UserId: "",
+    Name: "",
+    Avatar: "",
+    Account: "",
+    DateOfBirth: 0,
+    Email: "",
+    Phone: "",
+  });
 
   let userToken = GetCookie("UserToken");
 
   const changeValueIsLogin = () => {
     setIsLogin(true);
   };
+
+  const setUserGlobalContext = (dataValue) => {
+    setUser(dataValue);
+  };
+
+  const setFriendInfoGlobalContext = (dataValue) => {
+    setFriendInfor(dataValue);
+  };
+
   useEffect(() => {
     if (userToken !== "") {
       axios
@@ -28,6 +46,7 @@ function LoginProvider(props) {
         })
         .then((res) => {
           setUser(res.data.data);
+          setFriendInfor(res.data.data);
         })
         .then(changeValueIsLogin())
         .catch((err) => console.log(err));
@@ -37,7 +56,10 @@ function LoginProvider(props) {
   const initValue = {
     isLoggedIn: isLogin,
     changeLogin: changeValueIsLogin,
+    setUserGlobalContext: setUserGlobalContext,
+    setFriendInfoGlobalContext,
     userInfor: user,
+    friendInfo: friendInfo,
   };
 
   return (

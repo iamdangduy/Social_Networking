@@ -3,12 +3,13 @@ import { LoginContext } from "../GlobalContext";
 import InforSearch from "./InfoSearch/InforSearch.js";
 import "./Navbar.css";
 import { useContext, useEffect, useState } from "react";
+import { linkBackend } from "../Helper";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   const isLogin = useContext(LoginContext);
   const [keyword, setKeyword] = useState("");
   const [arrayUserSearch, setArrayUserSearch] = useState([]);
-  console.log(arrayUserSearch);
 
   // useEffect(() => {
   //   axios
@@ -32,11 +33,14 @@ function Navbar() {
 
   const onFocusOut = () => {
     setArrayUserSearch([]);
-  }
+  };
 
+  const setInforFriend = (dataValue) => {
+    isLogin.setFriendInfoGlobalContext(dataValue);
+  };
   return (
     <div className="navigation-bar">
-      <div className="navigation-logo"></div>
+      <div className="navigation-logo" style={{backgroundImage: "url('/Socialize.png')"}}></div>
       <div className="navigation-search">
         <div>
           <input
@@ -44,18 +48,35 @@ function Navbar() {
             name="input"
             onChange={(e) => setKeyword(e.target.value)}
             onKeyDown={handleKeyDown}
-            onBlur={onFocusOut}
             placeholder="Nhập từ khoá tìm kiếm"
           />
         </div>
         {arrayUserSearch.length > 0
           ? arrayUserSearch.map((element, index) => {
               return (
-                <InforSearch
+                <div
+                  onBlur={onFocusOut}
                   key={index}
-                  inforSearchName={element.Name}
-                  avatarLink={element.Avatar}
-                />
+                  onClick={() => {
+                    setInforFriend({
+                      ...isLogin.friendInfo,
+                      UserId: element.UserId,
+                      Name: element.Name,
+                      Avatar: element.Avatar,
+                      Account: element.Account,
+                      Email: element.Email,
+                      DateOfBirth: element.DateOfBirth,
+                      Phone: element.Phone,
+                    });
+                  }}
+                >
+                  <NavLink to="/explore">
+                    <InforSearch
+                      inforSearchName={element.Name}
+                      avatarLink={element.Avatar}
+                    />
+                  </NavLink>
+                </div>
               );
             })
           : ""}
@@ -65,7 +86,7 @@ function Navbar() {
           <img
             src={
               isLogin.userInfor.Avatar
-                ? `${isLogin.userInfor.Avatar}`
+                ? `${linkBackend}${isLogin.userInfor.Avatar}`
                 : `https://i.stack.imgur.com/l60Hf.png`
             }
           />

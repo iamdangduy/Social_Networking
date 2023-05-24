@@ -67,3 +67,5 @@ export const ConvertDateTime = function (long) {
     .slice(3, 5)}-${date.toLocaleDateString("en-GB").toString().slice(0, 2)}`;
   return newDate;
 };
+
+export const linkBackend = "https://localhost:44395";

@@ -7,23 +7,9 @@ function Notification() {
       <div className="notification-header">Notification</div>
 
       <NotificationForm
-        activites="adadadadadadad"
+        activites="Đăng duy đã yêu thích bài viết của bạn"
         createTime="(12 min ago)"
       ></NotificationForm>
-      <NotificationForm activites="adadadadadadadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
-      <NotificationForm activites="adadadadadadad"></NotificationForm>
     </div>
   );
 }

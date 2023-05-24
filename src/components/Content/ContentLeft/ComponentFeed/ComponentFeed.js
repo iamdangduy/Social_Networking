@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GetCookie } from "../../../Helper";
+import { GetCookie, linkBackend } from "../../../Helper";
 import axios from "axios";
 import "./ComponentFeed.css";
 
@@ -7,7 +7,6 @@ function ComponentFeed(props) {
   const [isShowEdit, setIsShowEdit] = useState(false);
   let userToken = GetCookie("UserToken");
   const deleteStatus = (postId) => {
-    console.log(postId);
     axios
       .get(`https://localhost:44395/api/Post/DeletePost?PostId=${postId}`, {
         headers: {
@@ -15,17 +14,21 @@ function ComponentFeed(props) {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => console.log(res))
       .then(window.location.reload())
-      .catch((err) => console.log(err));
+      // .then(window.location.reload())
+      .catch((err) => alert(err));
   };
 
   return (
     <div className="status-feed">
       <div className="status-feed-user-info">
-        <div className="status-feed-user-info--avatar"></div>
-        <div className="status-feed-user-info--name">
-          <h3>{props.FullName}</h3>
+        <div style={{ display: "flex" }}>
+          <div className="status-feed-user-info--avatar">
+            <img src={props.Avatar ? `${linkBackend}${props.Avatar}` : ""} />
+          </div>
+          <div className="status-feed-user-info--name">
+            <h3>{props.FullName}</h3>
+          </div>
         </div>
         <div
           className="status-feed-user-info--more"
@@ -36,11 +39,21 @@ function ComponentFeed(props) {
           <i className="fa-solid fa-ellipsis fa-xl"></i>
           {isShowEdit && (
             <div className="edit-remove-status">
-              <div className="edit-remove-status--row">Sửa</div>
+              <div className="edit-remove-status--row">
+                <i
+                  class="fa-solid fa-pen-to-square"
+                  style={{ marginRight: "10px" }}
+                ></i>
+                Sửa
+              </div>
               <div
                 className="edit-remove-status--row"
                 onClick={() => deleteStatus(props.PostId)}
               >
+                <i
+                  class="fa-solid fa-trash-can"
+                  style={{ marginRight: "10px" }}
+                ></i>
                 Xoá
               </div>
             </div>
@@ -52,7 +65,11 @@ function ComponentFeed(props) {
           <h2>{props.Title}</h2>
         </div>
         <div className="status-feed-content--image">
-          {props.ImageLink ? <img src={props.ImageLink} alt="" /> : ""}
+          {props.ImageLink !== "" ? (
+            <img src={`${linkBackend}${props.ImageLink}`} alt="" />
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="status-feed-like-comment-share">

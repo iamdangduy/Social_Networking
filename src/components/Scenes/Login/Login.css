@@ -7,3 +7,11 @@
     justify-content: center;
 }
 
+.content-logo {
+    width: 500px;
+    height: 500px;
+    /* background-color: aliceblue; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}

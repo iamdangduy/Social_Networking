@@ -55,3 +55,68 @@
   width: 100px;
   height: 100%;
 }
+
+.status-area-create-form {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.205);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.status-area-create-form--create {
+  width: 500px;
+  /* height: 700px; */
+  background-color: white;
+  border-radius: 10px;
+  z-index: 1;
+  padding: 10px 20px 20px 20px;
+}
+
+.create-form--create-header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  padding-top: 7px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-form--create-main-input {
+  border: 0px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.create-form--create-main-input:hover {
+  background-color: white;
+  cursor: auto;
+}
+
+.create-form--create-main-input:focus {
+  border: 0px;
+}
+
+.create-form--create-main-image {
+  width: 100%;
+  height: 300px;
+  background-color: #DFE5E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.post-status-btn{
+  width: 100%;
+  margin-top: 10px;
+}

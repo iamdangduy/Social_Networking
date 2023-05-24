@@ -12,6 +12,10 @@
 .navigation-logo {
   width: 250px;
   height: 100%;
+  /* background-color: aqua; */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .navigation-search {

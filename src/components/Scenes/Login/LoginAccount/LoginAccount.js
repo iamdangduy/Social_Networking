@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import "./LoginAccount.css";
 import { LoginContext } from "../../../GlobalContext";
-import {  SetCookie } from "../../../Helper";
+import {  SetCookie, linkBackend } from "../../../Helper";
 
 function LoginAccount(props) {
   const isLogin = useContext(LoginContext);
@@ -67,6 +67,7 @@ function LoginAccount(props) {
 
   return (
     <div className="content-login">
+      
       <div className="content-header">
         <div className="content-header--text">
           <h1>Login</h1>

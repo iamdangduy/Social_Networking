@@ -9,10 +9,6 @@ function App() {
   return (
     <div className="App">
       {isLogin.isLoggedIn ? <Container /> : <Login />}
-      {/* <Container />  */}
-      {/* <AlertNotification></AlertNotification> */}
-      {/* <Login></Login> */}
-      {/* <Container></Container> */}
     </div>
   );
 }
