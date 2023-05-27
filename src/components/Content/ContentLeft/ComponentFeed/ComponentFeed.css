@@ -60,6 +60,19 @@
   margin-right: 10px;
 }
 
+.active > * {
+  color: red;
+}
+
+.active {
+  background-color: #FCE6E6;
+}
+
+.active:hover {
+  background-color: #FCE6E6 !important;
+}
+
+
 .status-feed-create-comment {
   width: 100%;
   height: 50px;
@@ -74,6 +87,9 @@
   width: 40px;
   border-radius: 50%;
   background-color: rgb(192, 90, 90);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .create-comment-text {
@@ -118,6 +134,8 @@
 .status-feed-content--image{
   height: calc(100% - 28px - 10px);
   width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .status-feed-user-info--more {

@@ -1,6 +1,6 @@
 .content {
   width: calc(100% - 250px - 300px);
-  /* height: calc(100vh - 60px); */
+  min-height: calc(100vh - 60px);
   border-radius: 20px;
   background-color: #eff2f4;
   padding: 20px;

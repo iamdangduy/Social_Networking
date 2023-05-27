@@ -48,7 +48,7 @@ function Explore() {
 
   return (
     <div className="Explore">
-      <div className="explore-header">
+      <div className="explore-header" style={{backgroundImage: `url(${linkBackend}${isLogin.friendInfo.CoverPhoto})`}}>
         <div
           className="explore-header--avatar"
           style={{

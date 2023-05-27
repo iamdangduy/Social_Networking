@@ -10,12 +10,14 @@ function LoginProvider(props) {
     UserId: "",
     Name: "",
     Avatar: "",
+    CoverPhoto: "",
     Account: "",
   });
   const [friendInfo, setFriendInfor] = useState({
     UserId: "",
     Name: "",
     Avatar: "",
+    CoverPhoto: "",
     Account: "",
     DateOfBirth: 0,
     Email: "",

@@ -4,6 +4,7 @@ import ComponentFeed from "./ComponentFeed/ComponentFeed";
 import { LoginContext } from "../../GlobalContext";
 import "./ContentLeft.css";
 import axios from "axios";
+import StatusForm from "./StatusForm/StatusForm";
 
 function ContentLeft() {
   let userToken = GetCookie("UserToken");
@@ -16,10 +17,37 @@ function ContentLeft() {
   const [isCreateStatus, setIsCreateStatus] = useState(false);
   const [imageData, setImageData] = useState("");
   const [image, setImage] = useState("");
+  const [postId, setPostId] = useState("");
+  const [postDetail, setPostDetail] = useState({});
+  const [isShowPost, setIsShowPost] = useState(true);
+
+  console.log(isShowPost);
+
+  const callbackFunction = (childData) => {
+    setIsShowPost(childData);
+  };
 
   useEffect(() => {
     axios
-      .get("https://localhost:44395/api/Post/GetListPost")
+      .get(
+        `https://localhost:44395/api/Post/GetPostByPostId?PostId=${postId}`,
+        {
+          headers: {
+            Authorization: `${userToken}`,
+          },
+        }
+      )
+      .then((res) => setPostDetail(res.data.data))
+      .catch((err) => console.log(err));
+  }, [postId]);
+
+  useEffect(() => {
+    axios
+      .get("https://localhost:44395/api/Post/GetListPost", {
+        headers: {
+          Authorization: `${userToken}`,
+        },
+      })
       .then((res) => setPosts(res.data.data))
       .catch((err) => console.log(err));
   }, []);
@@ -74,6 +102,11 @@ function ContentLeft() {
     if (file) {
       reader.readAsDataURL(file);
     }
+  };
+
+  const postIdSendFromChildren = (childData, valueData) => {
+    setPostId(childData);
+    setIsShowPost(valueData);
   };
 
   return (
@@ -156,10 +189,33 @@ function ContentLeft() {
           </div>
         </div>
       </div>
+      {postDetail.Post && isShowPost ? (
+        <div className="comment-detail">
+          {(document.body.style.height = "100vh")}
+          {(document.body.style.overflowY = "hidden")}
+          <div className="comment-detail-form">
+            <StatusForm
+              FullName={postDetail.Post.Name}
+              Avatar={postDetail.Post.Avatar}
+              ImageLink={postDetail.Post.Image}
+              Title={postDetail.Post.Title}
+              UserAvatar={isLogin.userInfor.Avatar}
+              Comments={postDetail.Comments}
+              parentCallback={callbackFunction}
+            />
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
 
       {posts.map((element, index) => (
         <ComponentFeed
+          parentCallback={postIdSendFromChildren}
           PostId={element.PostId}
+          Love={element.Love}
+          Comment={element.Comment}
+          isActive={element.Loved}
           Avatar={element.Avatar}
           key={element.PostId}
           Title={element.Title}
