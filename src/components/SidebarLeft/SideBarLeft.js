@@ -1,14 +1,32 @@
 import { NavLink } from "react-router-dom";
 import "./SidebarLeft.css";
-import { SetCookie } from "../Helper";
+import { SetCookie, GetCookie } from "../Helper";
 import SidebarLeftChoice from "./SidebarLeftChoice/SidebarLeftChoice";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function SidebarLeft() {
-
+  let userToken = GetCookie("UserToken");
   const Logout = () => {
     SetCookie("UserToken", "");
     window.location.reload();
   };
+
+  const [numberNoti, setNumberNoti] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://localhost:44395/api/Notification/GetNotificationIsNotRead`,
+        {
+          headers: {
+            Authorization: `${userToken}`,
+          },
+        }
+      )
+      .then((res) => setNumberNoti(res.data.data))
+      .catch((err) => console.log(err));
+  });
 
   return (
     <div className="side-bar-left">
@@ -34,6 +52,7 @@ function SidebarLeft() {
         <SidebarLeftChoice
           text="Notification"
           iconElement={<i className="fa-regular fa-bell fa-xl"></i>}
+          numberNotification={numberNoti}
         ></SidebarLeftChoice>
       </NavLink>
       <NavLink to="/explore" className="a-navbar-link">

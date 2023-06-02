@@ -4,14 +4,15 @@
   background-color: white;
   border-radius: 20px;
   margin-top: 20px;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   box-sizing: border-box;
 }
 
 .status-feed-user-info {
   width: 100%;
-  height: 50px;
+  height: 60px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -65,13 +66,12 @@
 }
 
 .active {
-  background-color: #FCE6E6;
+  background-color: #fce6e6;
 }
 
 .active:hover {
-  background-color: #FCE6E6 !important;
+  background-color: #fce6e6 !important;
 }
-
 
 .status-feed-create-comment {
   width: 100%;
@@ -131,11 +131,12 @@
   /* display: flex; */
 }
 
-.status-feed-content--image{
+.status-feed-content--image {
   height: calc(100% - 28px - 10px);
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
+  /* background-color: #e6f2ff; */
 }
 
 .status-feed-user-info--more {

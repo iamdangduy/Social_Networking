@@ -1,8 +1,36 @@
 import "./StatusForm.css";
 import "../ComponentFeed/ComponentFeed.css";
-import { linkBackend } from "../../../Helper";
+import { linkBackend, GetCookie } from "../../../Helper";
+import { useState } from "react";
 
 function StatusForm(props) {
+  let userToken = GetCookie("UserToken");
+  const [commentContent, setCommentContent] = useState("");
+
+  const createComment = async function () {
+    let rq = await fetch("https://localhost:44395/api/Comment/InsertComment", {
+      method: "post",
+      headers: {
+        Authorization: `${userToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        CommentContent: commentContent,
+        PostId: props.PostId,
+      }),
+    });
+    let rs = await rq.json();
+    if (rs.status === "success") {
+      setCommentContent("");
+      // alert("Register Successful!!");
+      // window.location.reload();
+    } else {
+      console.log(rs.message);
+    }
+
+    console.log(props.PostId);
+  };
+
   const closeModal = (childrenData) => {
     props.parentCallback(childrenData);
   };
@@ -21,9 +49,12 @@ function StatusForm(props) {
           Nguyeenx Dawng Duy
         </div> */}
         <div className="status-feed-user-info">
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
             <div className="status-feed-user-info--avatar">
-              <img src={props.Avatar ? `${linkBackend}${props.Avatar}` : ""} />
+              <img
+                src={props.Avatar ? `${linkBackend}${props.Avatar}` : ""}
+                alt="duy"
+              />
             </div>
             <div className="status-feed-user-info--name">
               <h3>{props.FullName}</h3>
@@ -41,7 +72,7 @@ function StatusForm(props) {
             <h2>{props.Title}</h2>
           </div>
           <div className="status-feed-content--image">
-            {props.ImageLink !== "" ? (
+            {props.ImageLink ? (
               <img src={`${linkBackend}${props.ImageLink}`} alt="" />
             ) : (
               ""
@@ -126,7 +157,7 @@ function StatusForm(props) {
             ))
           : ""}
 
-        <div className="status-feed-create-comment">
+        <div className="status-feed-create-comment-form">
           <div
             className="create-comment-avatar"
             style={{
@@ -134,10 +165,19 @@ function StatusForm(props) {
             }}
           ></div>
           <div className="create-comment-text">
-            <input type="text" name="input" placeholder="Write a comment" />
+            <input
+              type="text"
+              name="input"
+              placeholder="Write a comment"
+              onChange={(e) => setCommentContent(e.target.value)}
+              value={commentContent}
+            />
           </div>
           <div className="create-comment-button">
-            <i className="fa-regular fa-paper-plane fa-xl"></i>
+            <i
+              className="fa-regular fa-paper-plane fa-xl"
+              onClick={() => createComment}
+            ></i>
           </div>
         </div>
       </div>

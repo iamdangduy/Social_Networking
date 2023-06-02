@@ -1,14 +1,30 @@
 import axios from "axios";
-import { linkBackend } from "../../../Helper";
+import { linkBackend, GetCookie } from "../../../Helper";
 import "./CommunityForm.css";
 
 function CommunityForm(props) {
+  let userToken = GetCookie("UserToken");
   const AcceptedFriend = (FriendShipId) => {
     axios
       .get(
         `https://localhost:44395/api/FriendShip/AcceptFriendShip?FriendShipId=${FriendShipId}`
       )
       .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
+
+  const RejectFriend = (FriendShipId) => {
+    axios
+      .get(
+        `https://localhost:44395/api/FriendShip/RejectFriendShip?FriendShipId=${FriendShipId}`,
+        {
+          headers: {
+            Authorization: `${userToken}`,
+          },
+        }
+      )
+      .then((res) => console.log(res.data))
+      .then(window.location.reload())
       .catch((err) => console.log(err));
   };
 
@@ -31,7 +47,12 @@ function CommunityForm(props) {
         >
           Accept
         </div>
-        <div className="btn second-btn ignore-btn">Ignore</div>
+        <div
+          className="btn second-btn ignore-btn"
+          onClick={() => RejectFriend(props.FriendShipId)}
+        >
+          Ignore
+        </div>
       </div>
     </div>
   );

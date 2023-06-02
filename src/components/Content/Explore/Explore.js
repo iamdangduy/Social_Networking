@@ -13,8 +13,8 @@ function Explore() {
     UserId: "",
     FriendId: isLogin.friendInfo.UserId,
   });
-  console.log(isLogin.friendInfo);
-  console.log(posts);
+
+  console.log(isLogin.friendInfo.UserId);
 
   useEffect(() => {
     axios
@@ -34,7 +34,10 @@ function Explore() {
           Authorization: `${userToken}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(friend),
+        body: JSON.stringify({
+          ...friend,
+          FriendId: isLogin.friendInfo.UserId,
+        }),
       }
     );
     let rs = await rq.json();
@@ -48,7 +51,12 @@ function Explore() {
 
   return (
     <div className="Explore">
-      <div className="explore-header" style={{backgroundImage: `url(${linkBackend}${isLogin.friendInfo.CoverPhoto})`}}>
+      <div
+        className="explore-header"
+        style={{
+          backgroundImage: `url(${linkBackend}${isLogin.friendInfo.CoverPhoto})`,
+        }}
+      >
         <div
           className="explore-header--avatar"
           style={{
@@ -67,7 +75,10 @@ function Explore() {
           {isLogin.userInfor.UserId === isLogin.friendInfo.UserId ? (
             ""
           ) : (
-            <div className="explore-main--addfriend btn pri-btn" onClick={addfriend}>
+            <div
+              className="explore-main--addfriend btn pri-btn"
+              onClick={addfriend}
+            >
               Add Friend
             </div>
           )}

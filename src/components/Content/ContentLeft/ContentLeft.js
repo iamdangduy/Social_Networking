@@ -20,8 +20,7 @@ function ContentLeft() {
   const [postId, setPostId] = useState("");
   const [postDetail, setPostDetail] = useState({});
   const [isShowPost, setIsShowPost] = useState(true);
-
-  console.log(isShowPost);
+  const [isRefresh, setIsRefresh] = useState(false);
 
   const callbackFunction = (childData) => {
     setIsShowPost(childData);
@@ -39,7 +38,7 @@ function ContentLeft() {
       )
       .then((res) => setPostDetail(res.data.data))
       .catch((err) => console.log(err));
-  }, [postId]);
+  }, [postId, userToken]);
 
   useEffect(() => {
     axios
@@ -50,7 +49,7 @@ function ContentLeft() {
       })
       .then((res) => setPosts(res.data.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [isRefresh]);
 
   const handleStatus = (e) => {
     const nextStatus = {
@@ -74,7 +73,6 @@ function ContentLeft() {
     });
     let rs = await rq.json();
     if (rs.status === "success") {
-      alert("Register Successful!!");
       window.location.reload();
     } else {
       console.log(rs.message);
@@ -107,6 +105,10 @@ function ContentLeft() {
   const postIdSendFromChildren = (childData, valueData) => {
     setPostId(childData);
     setIsShowPost(valueData);
+  };
+
+  const reRenderPosts = () => {
+    setIsRefresh(!isRefresh);
   };
 
   return (
@@ -164,6 +166,7 @@ function ContentLeft() {
                   ? `${linkBackend}${isLogin.userInfor.Avatar}`
                   : `https://i.stack.imgur.com/l60Hf.png`
               }
+              alt="duy"
             />
           </div>
           <input
@@ -196,6 +199,7 @@ function ContentLeft() {
           <div className="comment-detail-form">
             <StatusForm
               FullName={postDetail.Post.Name}
+              PostId={postDetail.Post.PostId}
               Avatar={postDetail.Post.Avatar}
               ImageLink={postDetail.Post.Image}
               Title={postDetail.Post.Title}
@@ -206,11 +210,12 @@ function ContentLeft() {
           </div>
         </div>
       ) : (
-        ""
+        <div>{(document.body.style.overflowY = "visible")}</div>
       )}
 
       {posts.map((element, index) => (
         <ComponentFeed
+          reRenderPosts={reRenderPosts}
           parentCallback={postIdSendFromChildren}
           PostId={element.PostId}
           Love={element.Love}
@@ -219,7 +224,7 @@ function ContentLeft() {
           Avatar={element.Avatar}
           key={element.PostId}
           Title={element.Title}
-          ImageLink={`${element.Image}`}
+          ImageLink={element.Image}
           FullName={element.Name}
         />
       ))}

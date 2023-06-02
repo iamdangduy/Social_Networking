@@ -42,3 +42,21 @@
   font-size: 15px;
   font-weight: 700;
 }
+
+.status-feed-create-comment-form {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.status-feed-user-info {
+  position: sticky;
+  top: 0;
+  background-color: white;
+}

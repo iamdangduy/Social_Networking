@@ -6,22 +6,13 @@ import "./Profile.css";
 function Profile() {
   let userToken = GetCookie("UserToken");
   const isLogin = useContext(LoginContext);
-  const [infoUSer, setInfoUser] = useState('');
+  const [infoUSer, setInfoUser] = useState("");
   const [avatar, setAvatar] = useState(isLogin.userInfor.Avatar);
-  // const [selectedFile, setSelectedFile] = useState(null);
   const [imageData, setImageData] = useState("");
-  console.log(avatar.preview); 
 
   useEffect(() => {
     setInfoUser(isLogin.userInfor);
   }, [isLogin.userInfor]);
-
-  // useEffect(() => {
-  //   setInfoUser({
-  //     ...infoUSer,
-  //     Avatar: imageData,
-  //   });
-  // }, [avatar]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -43,7 +34,6 @@ function Profile() {
       ...infoUSer,
       [e.target.name]: e.target.value,
     });
-
   };
 
   const updateInfoUser = async function () {
@@ -88,7 +78,9 @@ function Profile() {
         />
         <img
           src={
-            !avatar.preview ? `${linkBackend}${infoUSer.Avatar}` : avatar.preview
+            avatar.preview !== null
+              ? `${linkBackend}${infoUSer.Avatar}`
+              : avatar.preview
           }
           alt="123"
         />

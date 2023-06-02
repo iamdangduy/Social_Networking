@@ -7,7 +7,6 @@ import axios from "axios";
 function Community() {
   let userToken = GetCookie("UserToken");
   const [listAdd, setListAdd] = useState([]);
-  console.log(listAdd);
 
   useEffect(() => {
     axios
