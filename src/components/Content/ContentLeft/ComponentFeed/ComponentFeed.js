@@ -32,8 +32,6 @@ function ComponentFeed(props) {
     } else {
       console.log(rs.message);
     }
-
-    console.log(props.PostId);
   };
 
   const deleteStatus = (postId) => {
@@ -64,6 +62,12 @@ function ComponentFeed(props) {
       props.reRenderPosts();
     } else {
       console.log(rs.message);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      createComment(props.PostId);
     }
   };
 
@@ -198,6 +202,7 @@ function ComponentFeed(props) {
             placeholder="Write a comment"
             onChange={(e) => setCommentContent(e.target.value)}
             value={commentContent}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div className="create-comment-button">

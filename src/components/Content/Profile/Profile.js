@@ -10,6 +10,8 @@ function Profile() {
   const [avatar, setAvatar] = useState(isLogin.userInfor.Avatar);
   const [imageData, setImageData] = useState("");
 
+  console.log(avatar);
+
   useEffect(() => {
     setInfoUser(isLogin.userInfor);
   }, [isLogin.userInfor]);
@@ -77,11 +79,7 @@ function Profile() {
           onChange={handleFileChange}
         />
         <img
-          src={
-            avatar.preview !== null
-              ? `${linkBackend}${infoUSer.Avatar}`
-              : avatar.preview
-          }
+          src={avatar ? `${linkBackend}${infoUSer.Avatar}` : avatar.preview}
           alt="123"
         />
       </div>

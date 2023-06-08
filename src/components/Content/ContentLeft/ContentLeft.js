@@ -38,7 +38,7 @@ function ContentLeft() {
       )
       .then((res) => setPostDetail(res.data.data))
       .catch((err) => console.log(err));
-  }, [postId, userToken]);
+  }, [postId, isRefresh, userToken]);
 
   useEffect(() => {
     axios
@@ -198,6 +198,7 @@ function ContentLeft() {
           {(document.body.style.overflowY = "hidden")}
           <div className="comment-detail-form">
             <StatusForm
+              reRenderPosts={reRenderPosts}
               FullName={postDetail.Post.Name}
               PostId={postDetail.Post.PostId}
               Avatar={postDetail.Post.Avatar}

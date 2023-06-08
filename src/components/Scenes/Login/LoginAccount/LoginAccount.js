@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import "./LoginAccount.css";
 import { LoginContext } from "../../../GlobalContext";
-import {  SetCookie, linkBackend } from "../../../Helper";
+import {  SetCookie } from "../../../Helper";
 
 function LoginAccount(props) {
   const isLogin = useContext(LoginContext);
@@ -45,6 +45,12 @@ function LoginAccount(props) {
     else setPasswordValid(false);
     if (emailValid === false && passwordValid === false) loginAccount();
   };
+
+  const handleKeyDown = (e) => {
+    if(e.key === "Enter") {
+      onSubmitForm();
+    }
+  }
 
   const loginAccount = async function () {
     console.log("Login Success!!");
@@ -96,6 +102,7 @@ function LoginAccount(props) {
           value={loginInfor.Password}
           className="password-login"
           placeholder="Password"
+          onKeyDown={handleKeyDown}
         />
         {passwordValid ? (
           <label className="error-message">Password do not empty</label>

@@ -13,15 +13,36 @@ function Explore() {
     UserId: "",
     FriendId: isLogin.friendInfo.UserId,
   });
+  const [isFriend, setIsFriend] = useState({});
+  const [isRefresh, setIsRefresh] = useState(false);
 
-  console.log(isLogin.friendInfo.UserId);
+  console.log(isFriend);
 
   useEffect(() => {
     axios
       .get(
-        `https://localhost:44395/api/Post/GetListPostByUserId?UserId=${isLogin.friendInfo.UserId}`
+        `https://localhost:44395/api/Post/GetListPostByUserId?UserId=${isLogin.friendInfo.UserId}`,
+        {
+          headers: {
+            Authorization: `${userToken}`,
+          },
+        }
       )
       .then((res) => setPosts(res.data.data))
+      .catch((err) => console.log(err));
+  }, [isLogin.friendInfo.UserId, isRefresh]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://localhost:44395/api/FriendShip/CheckFriendShipExist?FriendId=${isLogin.friendInfo.UserId}`,
+        {
+          headers: {
+            Authorization: `${userToken}`,
+          },
+        }
+      )
+      .then((res) => setIsFriend(res.data.data))
       .catch((err) => console.log(err));
   }, [isLogin.friendInfo.UserId]);
 
@@ -49,6 +70,10 @@ function Explore() {
     }
   };
 
+  const reRenderPosts = () => {
+    setIsRefresh(!isRefresh);
+  };
+
   return (
     <div className="Explore">
       <div
@@ -72,7 +97,8 @@ function Explore() {
               {isLogin.friendInfo.Name}
             </div>
           </div>
-          {isLogin.userInfor.UserId === isLogin.friendInfo.UserId ? (
+          {isLogin.userInfor.UserId === isLogin.friendInfo.UserId ||
+          isFriend ? (
             ""
           ) : (
             <div
@@ -118,11 +144,15 @@ function Explore() {
           <div className="explore-main-content--right">
             {posts.map((element, index) => (
               <ComponentFeed
+                reRenderPosts={reRenderPosts}
                 PostId={element.PostId}
                 Avatar={element.Avatar}
+                isActive={element.Loved}
+                Love={element.Love}
+                Comment={element.Comment}
                 key={element.PostId}
                 Title={element.Title}
-                ImageLink={`${element.Image}`}
+                ImageLink={element.Image}
                 FullName={element.Name}
               />
             ))}

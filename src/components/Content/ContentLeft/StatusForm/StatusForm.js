@@ -22,13 +22,19 @@ function StatusForm(props) {
     let rs = await rq.json();
     if (rs.status === "success") {
       setCommentContent("");
+      props.reRenderPosts();
       // alert("Register Successful!!");
       // window.location.reload();
     } else {
       console.log(rs.message);
     }
 
-    console.log(props.PostId);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      createComment();
+    }
   };
 
   const closeModal = (childrenData) => {
@@ -171,6 +177,7 @@ function StatusForm(props) {
               placeholder="Write a comment"
               onChange={(e) => setCommentContent(e.target.value)}
               value={commentContent}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className="create-comment-button">
