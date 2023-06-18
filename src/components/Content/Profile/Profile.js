@@ -10,8 +10,6 @@ function Profile() {
   const [avatar, setAvatar] = useState(isLogin.userInfor.Avatar);
   const [imageData, setImageData] = useState("");
 
-  console.log(avatar);
-
   useEffect(() => {
     setInfoUser(isLogin.userInfor);
   }, [isLogin.userInfor]);
@@ -36,6 +34,8 @@ function Profile() {
       ...infoUSer,
       [e.target.name]: e.target.value,
     });
+
+    console.log(infoUSer);
   };
 
   const updateInfoUser = async function () {
@@ -58,7 +58,7 @@ function Profile() {
     });
     let rs = await rq.json();
     if (rs.status === "success") {
-      alert("Register Successful!!");
+      alert("Thay đổi dữ liệu thành công!!");
       window.location.reload();
     }
     console.log(rs);
@@ -79,7 +79,11 @@ function Profile() {
           onChange={handleFileChange}
         />
         <img
-          src={avatar ? `${linkBackend}${infoUSer.Avatar}` : avatar.preview}
+          src={
+            !avatar.preview
+              ? `${linkBackend}${infoUSer.Avatar}`
+              : avatar.preview
+          }
           alt="123"
         />
       </div>
@@ -100,6 +104,7 @@ function Profile() {
             <input
               className="email"
               type="text"
+              name="Email"
               value={infoUSer.Email}
               onChange={handleInfoUser}
             />
@@ -109,6 +114,7 @@ function Profile() {
             <input
               className="phone"
               type="text"
+              name="Phone"
               value={infoUSer.Phone}
               onChange={handleInfoUser}
             />

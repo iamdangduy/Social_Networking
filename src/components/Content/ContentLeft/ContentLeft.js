@@ -15,12 +15,16 @@ function ContentLeft() {
     Image: "",
   });
   const [isCreateStatus, setIsCreateStatus] = useState(false);
+  const [isEditStatus, setIsEditStatus] = useState(false);
   const [imageData, setImageData] = useState("");
   const [image, setImage] = useState("");
   const [postId, setPostId] = useState("");
+  const [postEdit, setPostEdit] = useState({});
   const [postDetail, setPostDetail] = useState({});
   const [isShowPost, setIsShowPost] = useState(true);
   const [isRefresh, setIsRefresh] = useState(false);
+
+  console.log(postEdit);
 
   const callbackFunction = (childData) => {
     setIsShowPost(childData);
@@ -85,6 +89,7 @@ function ContentLeft() {
 
   const handleShowFormCreateStatus = () => {
     setIsCreateStatus(!isCreateStatus);
+    setIsEditStatus(false);
   };
 
   const handleFileChange = (event) => {
@@ -111,51 +116,137 @@ function ContentLeft() {
     setIsRefresh(!isRefresh);
   };
 
+  const editPostFromParent = (data) => {
+    setIsCreateStatus(true);
+    setPostEdit(data);
+    setIsEditStatus(true);
+  };
+
+  const editStatus = () => {
+    fetch(`https://localhost:44395/api/Post/EditPost`, {
+      method: "post",
+      headers: {
+        Authorization: `${userToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...postEdit,
+        Image: "",
+      }),
+    })
+      .then((res) => res.json())
+      .then(setIsEditStatus(false))
+      .then(window.location.reload())
+      .catch((err) => console.log(err));
+  };
+
+  const handleEditStatus = (e) => {
+    setPostEdit({
+      ...postEdit,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div className="status-area">
       {isCreateStatus ? (
-        <div className="status-area-create-form">
-          <div className="status-area-create-form--create">
-            <div className="create-form--create-header">
-              <h1>Create Post</h1>
-              <i
-                className="fa-regular fa-circle-xmark fa-2xl"
-                onClick={handleShowFormCreateStatus}
-              ></i>
-            </div>
-            <hr />
-            <div className="create-form--create-main">
-              <input
-                className="create-form--create-main-input"
-                type="text"
-                placeholder="What's in your mind?"
-                name="Title"
-                value={status.Title}
-                onChange={handleStatus}
-              />
-            </div>
-            <div
-              className="create-form--create-main-image"
-              onClick={isShowChooseFile}
-              style={{ backgroundImage: `url('${image.preview}')` }}
-            >
-              <i className="fa-regular fa-image fa-2xl"></i>
-              <input
-                type="file"
-                className="input-create-image"
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-            </div>
-            <div className="create-form--create-footer">
-              <div className="btn pri-btn post-status-btn" onClick={postStatus}>
-                Post
+        !isEditStatus ? (
+          <div className="status-area-create-form">
+            {(document.body.style.height = "100vh")}
+            {(document.body.style.overflowY = "hidden")}
+            <div className="status-area-create-form--create">
+              <div className="create-form--create-header">
+                <h1>Create Post</h1>
+                <i
+                  className="fa-regular fa-circle-xmark fa-2xl"
+                  onClick={handleShowFormCreateStatus}
+                ></i>
+              </div>
+              <hr />
+              <div className="create-form--create-main">
+                <input
+                  className="create-form--create-main-input"
+                  type="text"
+                  placeholder="What's in your mind?"
+                  name="Title"
+                  value={status.Title}
+                  onChange={handleStatus}
+                />
+              </div>
+              <div
+                className="create-form--create-main-image"
+                onClick={isShowChooseFile}
+                style={{ backgroundImage: `url('${image.preview}')` }}
+              >
+                <i className="fa-regular fa-image fa-2xl"></i>
+                <input
+                  type="file"
+                  className="input-create-image"
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
+              </div>
+              <div className="create-form--create-footer">
+                <div
+                  className="btn pri-btn post-status-btn"
+                  onClick={postStatus}
+                >
+                  Post
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="status-area-create-form">
+            {(document.body.style.height = "100vh")}
+            {(document.body.style.overflowY = "hidden")}
+            <div className="status-area-create-form--create">
+              <div className="create-form--create-header">
+                <h1>Edit Post</h1>
+                <i
+                  className="fa-regular fa-circle-xmark fa-2xl"
+                  onClick={handleShowFormCreateStatus}
+                ></i>
+              </div>
+              <hr />
+              <div className="create-form--create-main">
+                <input
+                  className="create-form--create-main-input"
+                  type="text"
+                  placeholder="What's in your mind?"
+                  name="Title"
+                  value={postEdit.Title}
+                  onChange={handleEditStatus}
+                />
+              </div>
+              <div
+                className="create-form--create-main-image"
+                onClick={isShowChooseFile}
+                style={{
+                  backgroundImage: `url('${linkBackend}${postEdit.Image}')`,
+                }}
+              >
+                <i className="fa-regular fa-image fa-2xl"></i>
+                <input
+                  type="file"
+                  className="input-create-image"
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
+              </div>
+              <div className="create-form--create-footer">
+                <div
+                  className="btn pri-btn post-status-btn"
+                  onClick={editStatus}
+                >
+                  Post
+                </div>
+              </div>
+            </div>
+          </div>
+        )
       ) : (
-        ""
+        (document.body.style.overflowY = "visible")
       )}
       <div className="status-creator">
         <div className="status-creator-input">
@@ -211,7 +302,7 @@ function ContentLeft() {
           </div>
         </div>
       ) : (
-        <div>{(document.body.style.overflowY = "visible")}</div>
+        (document.body.style.overflowY = "visible")
       )}
 
       {posts.map((element, index) => (
@@ -227,6 +318,7 @@ function ContentLeft() {
           Title={element.Title}
           ImageLink={element.Image}
           FullName={element.Name}
+          parentEdit={editPostFromParent}
         />
       ))}
     </div>

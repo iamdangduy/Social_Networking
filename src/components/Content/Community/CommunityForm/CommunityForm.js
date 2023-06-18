@@ -10,6 +10,8 @@ function CommunityForm(props) {
         `https://localhost:44395/api/FriendShip/AcceptFriendShip?FriendShipId=${FriendShipId}`
       )
       .then((res) => console.log(res.data))
+      .then(alert("Success!"))
+      .then(window.location.reload())
       .catch((err) => console.log(err));
   };
 

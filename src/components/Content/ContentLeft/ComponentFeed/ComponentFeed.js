@@ -43,7 +43,6 @@ function ComponentFeed(props) {
         },
       })
       .then(window.location.reload())
-      // .then(window.location.reload())
       .catch((err) => alert(err));
   };
 
@@ -75,6 +74,18 @@ function ComponentFeed(props) {
     props.parentCallback(postId, isShow);
   };
 
+  const editPost = (postId) => {
+    fetch(`https://localhost:44395/api/Post/GetPostById?PostId=${postId}`, {
+      headers: {
+        Authorization: `${userToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => props.parentEdit(data.data))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="status-feed">
       <div className="status-feed-user-info">
@@ -98,7 +109,10 @@ function ComponentFeed(props) {
           <i className="fa-solid fa-ellipsis fa-xl"></i>
           {isShowEdit && (
             <div className="edit-remove-status">
-              <div className="edit-remove-status--row">
+              <div
+                className="edit-remove-status--row"
+                onClick={() => editPost(props.PostId, true)}
+              >
                 <i
                   className="fa-solid fa-pen-to-square"
                   style={{ marginRight: "10px" }}

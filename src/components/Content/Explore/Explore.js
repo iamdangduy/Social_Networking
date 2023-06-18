@@ -30,7 +30,7 @@ function Explore() {
       )
       .then((res) => setPosts(res.data.data))
       .catch((err) => console.log(err));
-  }, [isLogin.friendInfo.UserId, isRefresh]);
+  }, [isLogin.friendInfo.UserId]);
 
   useEffect(() => {
     axios
@@ -43,6 +43,7 @@ function Explore() {
         }
       )
       .then((res) => setIsFriend(res.data.data))
+      .then(setIsRefresh(!isRefresh))
       .catch((err) => console.log(err));
   }, [isLogin.friendInfo.UserId]);
 
@@ -63,7 +64,9 @@ function Explore() {
     );
     let rs = await rq.json();
     if (rs.status === "success") {
-      alert("Register Successful!!");
+      alert("Successful!!");
+      setIsFriend({ FriendId: isLogin.friendInfo.UserId });
+      setIsRefresh(!isRefresh);
       // window.location.reload();
     } else {
       console.log(rs.message);
